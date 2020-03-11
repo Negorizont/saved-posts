@@ -9,9 +9,14 @@ import axios from 'axios'
 import Post from './Post'
 
 export default {
-  name: 'Posts',
   components: {
     Post
+  },
+  async asyncData({ $axios }) {
+    const posts = await $axios.$get(
+      'https://5e63f7a3782c970014a89ee5.mockapi.io/api/post?page=1&limit=10'
+    )
+    return posts
   },
   data() {
     return {
@@ -19,21 +24,17 @@ export default {
       pageCounter: 1
     }
   },
-  mounted() {
-    axios
-      .get(
-        `https://5e63f7a3782c970014a89ee5.mockapi.io/api/post?page=1&limit=10`
-      )
-      .then((response) => {
-        this.posts = response.data
-        this.posts.forEach(function(dataItem) {
-          dataItem.createdAt = dataItem.createdAt
-            .split('T')[0]
-            .split('-')
-            .reverse()
-            .join('-')
-        })
-      })
+  async mounted() {
+    this.posts = await this.$axios.$get(
+      'https://5e63f7a3782c970014a89ee5.mockapi.io/api/post?page=1&limit=10'
+    )
+    this.posts.forEach(function(dataItem) {
+      dataItem.createdAt = dataItem.createdAt
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')
+    })
     window.addEventListener('scroll', () => {
       if (
         document.documentElement.scrollTop + window.innerHeight >=

@@ -1,24 +1,26 @@
 <template>
   <div class="post">
-    <div class="post__title">
-      <div class="title__user">
-        <div class="user__avatar">
-          <img :src="post.avatar" alt="avatar" />
+    <a href="#" @click.prevent="openPost(post.id)">
+      <div class="post__title">
+        <div class="title__user">
+          <div class="user__avatar">
+            <img :src="post.avatar" alt="avatar" />
+          </div>
+          <div class="user__name">{{ post.name }}</div>
         </div>
-        <div class="user__name">{{ post.name }}</div>
+        <button class="subscribe-btn">Follow</button>
       </div>
-      <button class="subscribe-btn">Follow</button>
-    </div>
-    <div class="post__content">
-      <img :src="post.photo" alt="post image" />
-    </div>
-    <div class="post__info">
-      <div class="like-block">
-        <button class="like-block__btn">♥</button>
-        <div class="like-block__counter">{{ post.likes }}</div>
+      <div class="post__content">
+        <img :src="post.photo" alt="post image" />
       </div>
-      <div class="post__date">{{ post.createdAt }}</div>
-    </div>
+      <div class="post__info">
+        <div class="like-block">
+          <button class="like-block__btn">♥</button>
+          <div class="like-block__counter">{{ post.likes }}</div>
+        </div>
+        <div class="post__date">{{ post.createdAt }}</div>
+      </div>
+    </a>
   </div>
 </template>
 
@@ -29,11 +31,21 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    openPost(id) {
+      this.$router.push('/publication/' + id)
+    }
   }
 }
 </script>
 
 <style scoped>
+a {
+  color: #000;
+  text-decoration: none;
+}
+
 .post {
   margin-bottom: 20px;
   border-radius: 10px;
