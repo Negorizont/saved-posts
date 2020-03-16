@@ -2,7 +2,7 @@
   <header class="header">
     <div class="wrapper">
       <nav class="navbar">
-        <a class="logo" href="#">posts</a>
+        <a class="logo" href="/">posts</a>
         <button class="button_menu">menu</button>
       </nav>
     </div>
